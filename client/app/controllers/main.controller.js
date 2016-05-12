@@ -4,7 +4,8 @@ angular.module('materialApp')
   .controller('MainController', function ($scope, $http, player) {
     $scope.player = player;
     $scope.isPlaying = false;
-    $scope.loop = "On";
+    $scope.loop = 0;
+    $scope.repeat_icon = "assets/icons/repeat.svg";
     $scope.loading = true;
 
     $scope.playSong = function(song) {
@@ -12,6 +13,7 @@ angular.module('materialApp')
       player.src = "songs/" + song.file;
       player.load();
       player.play();
+      player.loop = $scope.loop;
       $scope.isPaused = false;
       $scope.isPlaying = true;
     }
@@ -47,8 +49,13 @@ angular.module('materialApp')
 
     $scope.enableLoop = function() {
       player.loop = !player.loop;
-      if(player.loop) $scope.loop = "Off";
-      else $scope.loop = "On"
+      $scope.loop = player.loop;
+      if(player.loop) {
+          $scope.repeat_icon = "assets/icons/repeat-one.svg";
+      }
+      else {
+          $scope.repeat_icon = "assets/icons/repeat.svg";
+      }
     }
 
     $http.get('/api/player').success(function(songs) {

@@ -20,11 +20,8 @@
         <md-button class="md-icon-button" href="#" aria-label="pause" ng-click="pauseSong()">
             <md-icon md-svg-icon="assets/icons/pause.svg"></md-icon>
         </md-button>
-        <md-button class="md-icon-button" href="#" aria-label="repeat-one" ng-click="enableLoop()" ng-if="loop">
-            <md-icon md-svg-icon="assets/icons/repeat-one.svg"></md-icon>
-        </md-button>
-        <md-button class="md-icon-button" href="#" aria-label="repeat" ng-click="enableLoop()" ng-if="!loop">
-            <md-icon md-svg-icon="assets/icons/repeat.svg"></md-icon>
+        <md-button class="md-icon-button" href="#" aria-label="repeat" ng-click="enableLoop()">
+            <md-icon md-svg-icon="{{repeat_icon}}"></md-icon>
         </md-button>
     </div>
 </md-toolbar>
@@ -39,7 +36,7 @@
                 </md-button>
                 <p hide-md show-gt-md>
                     <md-subheader class="md-sticky md-warn">Now Playing</md-subheader>
-                    <p class="md-3-line">{{playing}}</p>
+                    <p class="md-3-line">{{playing}} <span ng-hide="!player.loop">[Loop Enabled]</span></p>
                 </p>
             </md-content>
         </md-sidenav>
