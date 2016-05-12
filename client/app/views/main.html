@@ -1,45 +1,61 @@
 <p ng-if="loading">Loading....</p>
 <div ng-if="!loading">
-<md-progress-linear class="md-warn md-hue-3" md-mode="determinate" value="{{progress}}"></md-progress-linear>
-<section layout="row" flex>
-	<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
-	  <md-content layout-padding>
-	    <md-button ng-click="close()" class="md-primary" hide-gt-md>
-            Close Sidenav Left
-	    </md-button>
-	    <p hide-md show-gt-md>
-			<md-subheader class="md-sticky md-primary">Now Playing</md-subheader>
-			<p class="md-3-line">{{playing}}</p>
-	    </p>
-	  </md-content>
-	</md-sidenav>
-	<md-content flex>
-		<section>
-			<md-subheader class="md-primary">Songs</md-subheader>
-            <md-list layout-padding>
-				<md-list-item class="md-3-line" ng-repeat="song in songs" ng-click="playSong(song)" flex>
-    				<div class="md-list-item-text" layout="column" >
-						<h3>{{ song.title }}</h3>
-						<h4>{{ song.album }}</h4>
-						<p>{{ song.year }}</p>
-					</div>
-					<md-divider ></md-divider>
-				</md-list-item>
-            </md-list>
-		</section>
-	</md-content>
-</section>
-<md-button class="md-icon-btn" aria-label="controls" ng-click="showControls()" style="position:fixed;right:0;bottom:0;"><md-icon md-svg-icon="assets/icons/equalizer.svg"></md-icon></md-button>
-	<md-menu style="position:fixed;right:0;bottom:0;">
-          <md-button class="md-fab md-primary" aria-label="controls" ng-click="$mdOpenMenu($event)">
-          	<md-icon md-svg-icon="assets/icons/equalizer.svg"></md-icon>
-          </md-button>
-          <md-menu-content width="6" layout-padding>
-          	<label>Volume</label>
-			<md-slider md-discrete ng-model="player.volume" step="0.1" min="0.1" max="1" aria-label="volume"></md-slider>
-			<label>Seek</label>
-			<md-slider md-discrete ng-model="player.currentTime" step="1" min="1" max="{{player.duration}}" aria-label="seek" class="md-primary"></md-slider>
-          </md-menu-content>
-        </md-menu>
+    <md-progress-linear class="md-warn md-hue-3" md-mode="determinate" value="{{progress}}"></md-progress-linear>
+    <section layout="row" flex>
+        <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+            <md-content layout-padding>
+                <md-button ng-click="close()" class="md-primary" hide-gt-md>
+                    Close Sidenav Left
+                </md-button>
+                <p hide-md show-gt-md>
+                    <md-subheader class="md-sticky md-primary">Now Playing</md-subheader>
+                    <p class="md-3-line">{{playing}}</p>
+                </p>
+            </md-content>
+        </md-sidenav>
+        <md-content style="height: 800px;" flex>
+            <section>
+                <md-subheader class="md-primary">Songs</md-subheader>
+                <md-list layout-padding>
+                    <div layout="row" ng-repeat="song in songs">
+                        <md-list-item class="md-3-line" ng-click="playSong(song)" flex>
+                            <div class="md-list-item-text" layout="column">
+                                <h3>{{ song.title }}</h3>
+                                <h4>{{ song.album }}</h4>
+                                <p>{{ song.year }}</p>
+                            </div>
+                        </md-list-item>
+                        <md-fab-speed-dial md-direction="left" md-open="demo.isOpen" class="md-scale" ng-mouseenter="demo.isOpen=true" ng-mouseleave="demo.isOpen=false">
+                            <md-fab-trigger>
+                                <md-button aria-label="menu" class="md-fab md-primary md-hue-3">
+                                    <md-tooltip md-direction="top" md-visible="tooltipVisible">Playlist</md-tooltip>
+                                    <md-icon md-svg-src="assets/icons/queue_music.svg" aria-label="plalist"></md-icon>
+                                </md-button>
+                            </md-fab-trigger>
+                            <md-fab-actions>
+                                <md-button aria-label="add-playlist" class="md-fab md-raised md-mini" ng-click="">
+                                    <md-tooltip md-direction="top" md-visible="tooltipVisible" md-autohide="false">
+                                        Add to playlist
+                                    </md-tooltip>
+                                    <md-icon md-svg-src="assets/icons/playlist_add.svg"></md-icon>
+                                </md-button>
+                            </md-fab-actions>
+                        </md-fab-speed-dial>
+                    </div>
+                </md-list>
+            </section>
+        </md-content>
+    </section>
+    <md-menu style="position:absolute;left:0;bottom:0;">
+        <md-button class="md-fab md-primary" aria-label="controls" ng-click="$mdOpenMenu($event)">
+            <md-icon md-svg-icon="assets/icons/equalizer.svg"></md-icon>
+        </md-button>
+        <md-menu-content width="6" layout-padding>
+            <label>Volume</label>
+            <md-slider md-discrete ng-model="player.volume" step="0.1" min="0.1" max="1" aria-label="volume"></md-slider>
+            <label>Seek</label>
+            <md-slider md-discrete ng-model="player.currentTime" step="1" min="1" max="{{player.duration}}" aria-label="seek" class="md-primary"></md-slider>
+        </md-menu-content>
+    </md-menu>
 
-        </div>
+</div>
