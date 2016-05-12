@@ -29,7 +29,7 @@
 <div ng-if="!loading">
     <md-progress-linear class="md-warn md-hue-3" md-mode="determinate" value="{{progress}}"></md-progress-linear>
     <section layout="row" flex>
-        <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+        <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md') && isPlaying">
             <md-content layout-padding>
                 <md-button ng-click="close()" class="md-primary" hide-gt-md>
                     Close Sidenav Left
