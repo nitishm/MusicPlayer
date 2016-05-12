@@ -1,3 +1,33 @@
+<md-toolbar class="md-theme-indigo" md-scroll-shrink>
+    <div class="md-toolbar-tools">
+        <a ui-sref="player"><img src="assets\images\music-player.png" width="50px" height="50px"></img>
+        </a>
+        <span flex></span>
+        <md-menu>
+            <md-button class="md-icon-button" aria-label="controls" ng-click="$mdOpenMenu($event)">
+                <md-icon md-svg-icon="assets/icons/equalizer.svg"></md-icon>
+            </md-button>
+            <md-menu-content width="6" layout-padding>
+                <label>Volume</label>
+                <md-slider md-discrete ng-model="player.volume" step="0.1" min="0.1" max="1" aria-label="volume"></md-slider>
+                <label>Seek</label>
+                <md-slider md-discrete ng-model="player.currentTime" step="1" min="1" max="{{player.duration}}" aria-label="seek" class="md-primary"></md-slider>
+            </md-menu-content>
+        </md-menu>
+        <md-button class="md-icon-button" href="#" aria-label="play" ng-click="resumeSong()">
+            <md-icon md-svg-icon="assets/icons/play.svg"></md-icon>
+        </md-button>
+        <md-button class="md-icon-button" href="#" aria-label="pause" ng-click="pauseSong()">
+            <md-icon md-svg-icon="assets/icons/pause.svg"></md-icon>
+        </md-button>
+        <md-button class="md-icon-button" href="#" aria-label="repeat-one" ng-click="enableLoop()" ng-if="loop">
+            <md-icon md-svg-icon="assets/icons/repeat-one.svg"></md-icon>
+        </md-button>
+        <md-button class="md-icon-button" href="#" aria-label="repeat" ng-click="enableLoop()" ng-if="!loop">
+            <md-icon md-svg-icon="assets/icons/repeat.svg"></md-icon>
+        </md-button>
+    </div>
+</md-toolbar>
 <p ng-if="loading">Loading....</p>
 <div ng-if="!loading">
     <md-progress-linear class="md-warn md-hue-3" md-mode="determinate" value="{{progress}}"></md-progress-linear>
@@ -8,12 +38,12 @@
                     Close Sidenav Left
                 </md-button>
                 <p hide-md show-gt-md>
-                    <md-subheader class="md-sticky md-primary">Now Playing</md-subheader>
+                    <md-subheader class="md-sticky md-warn">Now Playing</md-subheader>
                     <p class="md-3-line">{{playing}}</p>
                 </p>
             </md-content>
         </md-sidenav>
-        <md-content style="height: 800px;" flex>
+        <md-content style="height: 900px;" flex>
             <section>
                 <md-subheader class="md-primary">Songs</md-subheader>
                 <md-list layout-padding>
@@ -25,10 +55,9 @@
                                 <p>{{ song.year }}</p>
                             </div>
                         </md-list-item>
-                        <md-fab-speed-dial md-direction="left" md-open="demo.isOpen" class="md-scale" ng-mouseenter="demo.isOpen=true" ng-mouseleave="demo.isOpen=false">
+                        <md-fab-speed-dial md-direction="left" md-open="demo.isOpen" class="md-scale" ng-mouseenter="demo.isOpen=true" ng-mouseleave="demo.isOpen=false" style="position: relative;">
                             <md-fab-trigger>
                                 <md-button aria-label="menu" class="md-fab md-primary md-hue-3">
-                                    <md-tooltip md-direction="top" md-visible="tooltipVisible">Playlist</md-tooltip>
                                     <md-icon md-svg-src="assets/icons/queue_music.svg" aria-label="plalist"></md-icon>
                                 </md-button>
                             </md-fab-trigger>
@@ -46,16 +75,4 @@
             </section>
         </md-content>
     </section>
-    <md-menu style="position:absolute;left:0;bottom:0;">
-        <md-button class="md-fab md-primary" aria-label="controls" ng-click="$mdOpenMenu($event)">
-            <md-icon md-svg-icon="assets/icons/equalizer.svg"></md-icon>
-        </md-button>
-        <md-menu-content width="6" layout-padding>
-            <label>Volume</label>
-            <md-slider md-discrete ng-model="player.volume" step="0.1" min="0.1" max="1" aria-label="volume"></md-slider>
-            <label>Seek</label>
-            <md-slider md-discrete ng-model="player.currentTime" step="1" min="1" max="{{player.duration}}" aria-label="seek" class="md-primary"></md-slider>
-        </md-menu-content>
-    </md-menu>
-
 </div>
