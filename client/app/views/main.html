@@ -44,29 +44,32 @@
             <section>
                 <md-subheader class="md-primary">Songs</md-subheader>
                 <md-list layout-padding>
-                    <div layout="row" ng-repeat="song in songs">
-                        <md-list-item class="md-3-line" ng-click="playSong(song)" flex>
-                            <div class="md-list-item-text" layout="column">
-                                <h3>{{ song.title }}</h3>
-                                <h4>{{ song.album }}</h4>
-                                <p>{{ song.year }}</p>
-                            </div>
-                        </md-list-item>
-                        <md-fab-speed-dial md-direction="left" md-open="demo.isOpen" class="md-scale" ng-mouseenter="demo.isOpen=true" ng-mouseleave="demo.isOpen=false" style="position: relative;">
-                            <md-fab-trigger>
-                                <md-button aria-label="menu" class="md-fab md-primary md-hue-3">
-                                    <md-icon md-svg-src="assets/icons/queue_music.svg" aria-label="plalist"></md-icon>
-                                </md-button>
-                            </md-fab-trigger>
-                            <md-fab-actions>
-                                <md-button aria-label="add-playlist" class="md-fab md-raised md-mini" ng-click="">
-                                    <md-tooltip md-direction="top" md-visible="tooltipVisible" md-autohide="false">
-                                        Add to playlist
-                                    </md-tooltip>
-                                    <md-icon md-svg-src="assets/icons/playlist_add.svg"></md-icon>
-                                </md-button>
-                            </md-fab-actions>
-                        </md-fab-speed-dial>
+                    <div ng-repeat="song in songs" layout="column">
+                        <md-content layout="row">
+                            <md-list-item class="md-3-line" ng-click="playSong(song)" flex>
+                                <div class="md-list-item-text" layout="column">
+                                    <h3>{{ song.title }}</h3>
+                                    <h4>{{ song.album }}</h4>
+                                    <p>{{ song.year }}</p>
+                                </div>
+                            </md-list-item>
+                            <md-fab-speed-dial md-direction="left" md-open="demo.isOpen" class="md-fling md-avatar-icon" ng-mouseenter="demo.isOpen=true" ng-mouseleave="demo.isOpen=false" style="position: relative;">
+                                <md-fab-trigger>
+                                    <md-button aria-label="menu" class="md-fab md-primary md-hue-3">
+                                        <md-icon md-svg-src="assets/icons/queue_music.svg" aria-label="plalist"></md-icon>
+                                    </md-button>
+                                </md-fab-trigger>
+                                <md-fab-actions ng-hide="!demo.isOpen">
+                                    <md-button aria-label="add-playlist" class="md-fab md-raised md-mini" ng-click="">
+                                        <md-tooltip md-direction="top" md-visible="tooltipVisible" md-autohide="false">
+                                            Add to playlist
+                                        </md-tooltip>
+                                        <md-icon md-svg-src="assets/icons/playlist_add.svg"></md-icon>
+                                    </md-button>
+                                </md-fab-actions>
+                            </md-fab-speed-dial>
+                        </md-content>
+                        <md-divider></md-divider>
                     </div>
                 </md-list>
             </section>
