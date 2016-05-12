@@ -1,0 +1,11 @@
+<md-toolbar class="md-theme-indigo">
+	<div class="md-toolbar-tools">
+    	<a ui-sref="player"><img src="assets\images\music-player.png" width="50px" height="50px"></img></a>
+    	<span flex></span>
+    	<h3 ng-if="playing">Now Playing : {{$scope.playing}}</h3>
+    	<md-button class="md-icon-button" href="#" aria-label="play" ng-click="resumeSong()"><md-icon md-svg-icon="assets/icons/play.svg"></md-icon></md-button>
+    	<md-button class="md-icon-button" href="#" aria-label="pause" ng-click="pauseSong()"><md-icon md-svg-icon="assets/icons/pause.svg"></md-icon></md-button>
+    	<md-button class="md-icon-button" href="#" aria-label="repeat-one" ng-click="enableLoop()" ng-if="loop"><md-icon md-svg-icon="assets/icons/repeat-one.svg"></md-icon></md-button>
+    	<md-button class="md-icon-button" href="#" aria-label="repeat" ng-click="enableLoop()" ng-if="!loop"><md-icon md-svg-icon="assets/icons/repeat.svg"></md-icon></md-button>
+	</div>
+</md-toolbar>
