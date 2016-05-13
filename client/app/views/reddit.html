@@ -1,0 +1,35 @@
+<md-toolbar class="md-theme-indigo">
+    <div class="md-toolbar-tools">
+        <md-menu md-position-mode="target target" layout="column" layout-align="center center">
+            <md-button class="md-icon-button" aria-label="controls" ng-click="$mdOpenMenu($event)">
+                <md-icon md-svg-icon="assets/icons/apps.svg"></md-icon>
+            </md-button>
+            <md-menu-content width="2">
+                <md-button ui-sref="reddit"><span md-menu-align-target>Reddit</span></md-button>
+                <md-button ui-sref="player.songs"><span md-menu-align-target>Music</span></md-button>
+            </md-menu-content>
+        </md-menu>
+        <a ui-sref="reddit"><img src="assets\images\reddit.png" width="50px" height="50px"></img>
+        </a>
+        <span flex></span>
+        <h3>Reddit Reader</h3>
+        <span flex></span>
+    </div>
+</md-toolbar>
+  <!--Note: for scrollShrink to work, the toolbar must be a sibling of a md-content element, placed before it.-->
+<md-content style="height: 800px; z-index=0;" flex>
+    <section>
+        <md-subheader class="md-primary">PENNYSTOCKS</md-subheader><!--You can use md-no-sticky class-->
+        <md-list>
+            <div ng-repeat="post in posts" layout="column">
+                <md-list-item class="md-2-line" ng-click="openTab(post.url)">
+                    <div class="md-list-item-text" layout="column">
+                        <h3 class="md-headlin md-primary">{{ post.title }}</h3>
+                        <p class="md-caption">{{ post.author }} : {{post.ups}}</p>
+                    </div>
+                </md-list-item>
+                <md-divider></md-divider>
+            </div>
+        </md-list>
+    </section>
+</md-content>

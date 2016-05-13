@@ -13,8 +13,8 @@ angular.module('materialApp')
     $rootScope.$on('$stateChangeStart', 
       function(event, toState, toParams, fromState, fromParams, options) { 
         $scope.state = toState.url;
-        if($scope.state === 'radio') $scope.isRadio = true;
-        else {
+//        if($scope.state === 'radio') $scope.isRadio = true;
+        if($scope.isRadio){
           $scope.isRadio = false;
           player.src = "";
           player.play();

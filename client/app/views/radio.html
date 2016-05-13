@@ -1,7 +1,7 @@
 <md-subheader class="md-primary">Radios</md-subheader>
 <md-list layout-padding>
 <div ng-repeat="radio in radios" layout="column">
-    <md-content layout="row">
+    <md-content layout="row" ng-class="{'md-content-active' : playing === radio.title}">
         <md-list-item class="md-3-line" ng-click="playRadio(radio)" flex>
             <div class="md-list-item-text" layout="column">
                 <h3>{{ radio.title }}</h3>

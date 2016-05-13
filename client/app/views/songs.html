@@ -1,7 +1,7 @@
 <md-subheader class="md-primary">Songs</md-subheader>
 <md-list layout-padding>
 <div ng-repeat="song in songs" layout="column">
-    <md-content layout="row">
+    <md-content layout="row" ng-class="{'md-content-active' : playing === song.title}" >
         <md-list-item class="md-3-line" ng-click="playSong(song)" flex>
             <div class="md-list-item-text" layout="column">
                 <h3>{{ song.title }}</h3>

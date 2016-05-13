@@ -1,6 +1,15 @@
-<md-toolbar class="md-theme-indigo" md-scroll-shrink>
+<md-toolbar class="md-theme-indigo">
     <div class="md-toolbar-tools">
-        <a ui-sref="player"><img src="assets\images\music-player.png" width="50px" height="50px"></img>
+        <md-menu md-position-mode="target target" layout="column" layout-align="center center">
+            <md-button class="md-icon-button" aria-label="controls" ng-click="$mdOpenMenu($event)">
+                <md-icon md-svg-icon="assets/icons/apps.svg"></md-icon>
+            </md-button>
+            <md-menu-content width="2">
+                <md-button ui-sref="reddit"><span md-menu-align-target>Reddit</span></md-button>
+                <md-button ui-sref="player.songs"><span md-menu-align-target>Music</span></md-button>
+            </md-menu-content>
+        </md-menu>
+        <a ui-sref="player.songs"><img src="assets\images\music-player.png" width="50px" height="50px"></img>
         </a>
         <md-button class="md-icon-button" aria-label="play" ng-click="stopSong()" ng-show="isPlaying">
             <md-icon md-svg-icon="assets/icons/clear.svg"></md-icon>
@@ -26,6 +35,8 @@
                 Repeat
             </md-tooltip>
         </md-button>
+        <span flex></span>
+        <h3>Music Player</h3>
         <span flex></span>
         <md-button ui-sref="player.radio" class="md-icon-button" aria-label="radio" ng-if="state === 'songs'">
             <md-icon md-svg-icon="assets/icons/radio.svg"></md-icon>
@@ -58,17 +69,13 @@
     <section layout="row" flex>
         <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md') && isPlaying">
             <md-content layout-padding>
-                <md-button ng-click="close()" class="md-primary" hide-gt-md>
-                    Close Sidenav Left
-                </md-button>
-                <p hide-md show-gt-md>
+                <div layout="column" layout-align="center center" hide-md show-gt-md>
                     <md-subheader class="md-sticky md-warn">Now Playing</md-subheader>
-                    <md-divider></md-divider>
                     <p class="md-caption">{{playing}}</p>
-                </p>
+                </div>
             </md-content>
         </md-sidenav>
-        <md-content style="height: 580px; z-index=0;" flex>
+        <md-content style="height: 800px; z-index=0;" flex>
             <section>
                     <div ui-view></div>
             </section>
