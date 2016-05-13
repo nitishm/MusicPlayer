@@ -1,14 +1,5 @@
 <md-toolbar class="md-theme-indigo">
     <div class="md-toolbar-tools">
-        <md-menu md-position-mode="target target" layout="column" layout-align="center center">
-            <md-button class="md-icon-button" aria-label="controls" ng-click="$mdOpenMenu($event)">
-                <md-icon md-svg-icon="assets/icons/apps.svg"></md-icon>
-            </md-button>
-            <md-menu-content width="2">
-                <md-button ui-sref="reddit"><span md-menu-align-target>Reddit</span></md-button>
-                <md-button ui-sref="player.songs"><span md-menu-align-target>Music</span></md-button>
-            </md-menu-content>
-        </md-menu>
         <a ui-sref="player.songs"><img src="assets\images\music-player.png" width="50px" height="50px"></img>
         </a>
         <md-button class="md-icon-button" aria-label="play" ng-click="stopSong()" ng-show="isPlaying">
@@ -59,6 +50,15 @@
                 <md-slider md-discrete ng-model="player.volume" step="0.1" min="0.1" max="1" aria-label="volume"></md-slider>
                 <label ng-if="!isRadio"><md-icon md-svg-icon="assets/icons/fast_forward_black.svg"></md-icon></label>
                 <md-slider md-discrete ng-model="player.currentTime" step="1" min="1" max="{{player.duration}}" aria-label="seek" class="md-primary" ng-if=!isRadio></md-slider>
+            </md-menu-content>
+        </md-menu>
+        <md-menu md-position-mode="target-right target" layout="column" layout-align="center center">
+            <md-button class="md-icon-button" aria-label="controls" ng-click="$mdOpenMenu($event)">
+                <md-icon md-svg-icon="assets/icons/apps.svg"></md-icon>
+            </md-button>
+            <md-menu-content width="2">
+                <md-button ui-sref="reddit"><span md-menu-align-target>Reddit</span></md-button>
+                <md-button ui-sref="player.songs"><span md-menu-align-target>Music</span></md-button>
             </md-menu-content>
         </md-menu>    
     </div>
