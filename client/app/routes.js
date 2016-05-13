@@ -6,17 +6,18 @@ angular.module('materialApp')
       .state('player', {
         url: '/',
         views: {
-            'header': {
-                templateUrl : 'app/views/header.html',
-                controller  : 'HeaderController'
-            },
             'content': {
                 templateUrl : 'app/views/main.html',
                 controller  : 'MainController'
-            },
-            'footer': {
-                templateUrl : 'app/views/footer.html',
             }
         }
+      })
+      .state('player.songs' ,{ 
+        url: 'songs',
+        templateUrl : 'app/views/songs.html',
+      })
+      .state('player.radio' ,{ 
+        url: 'radio',
+        templateUrl : 'app/views/radio.html',
       });
   });

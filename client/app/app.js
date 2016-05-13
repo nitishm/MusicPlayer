@@ -33,6 +33,5 @@ angular.module('materialApp', [
   })
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $urlRouterProvider
-      .otherwise('/');
-    $locationProvider.html5Mode(true);
+      .otherwise('/songs');
   });

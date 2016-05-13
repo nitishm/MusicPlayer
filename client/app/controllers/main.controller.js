@@ -1,27 +1,38 @@
 'use strict';
 
 angular.module('materialApp')
-  .controller('MainController', function ($scope, $http, player) {
+  .controller('MainController', function ($rootScope, $scope, $http, $state, player) {
+    $scope.state = $state.current.url;
     $scope.player = player;
     $scope.isPlaying = false;
+    $scope.isRadio = false;
     $scope.loop = 0;
     $scope.repeat_icon = "assets/icons/repeat.svg";
     $scope.loading = true;
 
-    $scope.playSong = function(song) {
-      $scope.playing = song.title;
-      player.src = "songs/" + song.file;
-      player.load();
-      player.play();
-      player.loop = $scope.loop;
-      $scope.isPaused = false;
-      $scope.isPlaying = true;
-    }
+    $rootScope.$on('$stateChangeStart', 
+      function(event, toState, toParams, fromState, fromParams, options) { 
+        $scope.state = toState.url;
+        if($scope.state === 'radio') $scope.isRadio = true;
+        else {
+          $scope.isRadio = false;
+          player.src = "";
+          player.play();
+          player.currentTime = $scope.progress = $scope.buffered = 0;
+          $scope.isPlaying = $scope.isPaused = false;
+        }
+      }
+    );
 
     player.ontimeupdate = function() {
-      $scope.progress = (player.currentTime/player.duration) * 100;
-      $scope.buffered = player.buffered;
-      $scope.$apply();
+      if($scope.isRadio) {
+        $scope.progress = 0;
+        $scope.buffered = 0;
+      } else {
+        $scope.progress = (player.currentTime/player.duration) * 100;
+        $scope.buffered = player.buffered;
+        $scope.$apply();
+      }
     }
 
     player.onplaying = function() {
@@ -33,8 +44,29 @@ angular.module('materialApp')
     }
 
     $scope.seekPosition = function() {
-      console.log($scope.position);
       player.currentTime = $scope.position;
+    }
+
+    $scope.playSong = function(song) {
+      $scope.isRadio = false;
+      $scope.playing = song.title;
+      player.src = "songs/" + song.file;
+      player.load();
+      player.play();
+      player.loop = $scope.loop;
+      $scope.isPaused = false;
+      $scope.isPlaying = true;
+    }
+
+    $scope.playRadio = function(radio) {
+      $scope.isRadio = true;
+      $scope.playing = radio.title;
+      player.src = radio.url;
+      player.load();
+      player.play();
+      player.loop = $scope.loop;
+      $scope.isPaused = false;
+      $scope.isPlaying = true;
     }
 
     $scope.pauseSong = function() {
@@ -45,6 +77,12 @@ angular.module('materialApp')
     $scope.resumeSong = function() {
       player.play();
       $scope.isPaused = false;
+    }
+
+    $scope.stopSong = function() {
+      player.pause();
+      player.currentTime = 0;
+      $scope.isPlaying = $scope.isPaused = false;
     }
 
     $scope.enableLoop = function() {
@@ -62,4 +100,6 @@ angular.module('materialApp')
       $scope.songs = songs;
       $scope.loading = false;
     });
+
+    $scope.radios = [{title: 'Dubai City FM 101.6', url: 'http://playerservices.streamtheworld.com/api/livestream-redirect/ARNCITY_SC'}];
   });
