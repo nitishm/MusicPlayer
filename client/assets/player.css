@@ -1,3 +1,21 @@
 .md-content-active {
     background-color: aliceblue;
 }
+
+.reddit-subheader {
+    background-color: #FF5722;
+    color: white;
+}
+
+.icon-text {
+	font-size: 16px;
+    font-weight: 400;
+    letter-spacing: .010em;
+    margin: auto;
+    line-height: 1.2em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: inline-block;
+    vertical-align: middle;
+}

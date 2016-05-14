@@ -27,15 +27,15 @@
             </md-tooltip>
         </md-button>
         <span flex></span>
-        <h3>Music Player</h3>
+        <h3 hide show-gt-sm>Music Player</h3>
         <span flex></span>
-        <md-button ui-sref="player.radio" class="md-icon-button" aria-label="radio" ng-if="state === 'songs'">
+        <md-button ui-sref="player.radio" class="md-icon-button" aria-label="radio" ng-show="state === 'songs'">
             <md-icon md-svg-icon="assets/icons/radio.svg"></md-icon>
             <md-tooltip md-direction="bottom" md-visible="tooltipVisible" md-autohide="true">
                 Go To Radio
             </md-tooltip>
         </md-button>  
-        <md-button ui-sref="player.songs" class="md-icon-button" aria-label="songs" ng-if="state === 'radio'">
+        <md-button ui-sref="player.songs" class="md-icon-button" aria-label="songs" ng-show="state === 'radio'">
             <md-icon md-svg-icon="assets/icons/queue_music.svg"></md-icon>
             <md-tooltip md-direction="bottom" md-visible="tooltipVisible" md-autohide="true">
                 Go To Songs
@@ -63,26 +63,8 @@
         </md-menu>    
     </div>
 </md-toolbar>
-<p ng-if="loading">Loading....</p>
-<div ng-if="!loading">
-    <md-progress-linear class="md-warn md-hue-3" md-mode="determinate" value="{{progress}}" ng-if="!isRadio"></md-progress-linear>
-    <section layout="row" flex>
-        <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md') && isPlaying">
-            <md-content layout-padding>
-                <div layout="column" layout-align="center center" hide-md show-gt-md>
-                    <md-subheader class="md-sticky md-warn">Now Playing</md-subheader>
-                    <p class="md-caption">{{playing}}</p>
-                </div>
-            </md-content>
-        </md-sidenav>
-        <md-content style="height: 800px; z-index=0;" flex>
-            <section>
-                    <div ui-view></div>
-            </section>
-        </md-content>
-    </section>
-</div>
-<md-toolbar class="md-theme-indigo" style="position: fixed; bottom: 0; z-index=20" hide show-gt-sm>
+<md-divider></md-divider>
+<md-toolbar class="md-theme-indigo" hide show-gt-sm>
     <div class="md-toolbar-tools">
         <md-icon md-svg-icon="assets/icons/fast_rewind.svg" ng-if="!isRadio"></md-icon>
         <md-slider ng-model="player.currentTime" step="1" min="1" max="{{player.duration}}" aria-label="seek" class="md-warn flex" style="padding-left: 20px; padding-right: 20px" ng-if="!isRadio"></md-slider>
@@ -93,5 +75,25 @@
         <md-icon md-svg-icon="assets/icons/volume_up.svg"></md-icon>
     </div>
 </md-toolbar>
+<p ng-if="loading">Loading....</p>
+<div ng-if="!loading" layout="column" layout-fill>
+    <md-progress-linear class="md-warn md-hue-3" md-mode="determinate" value="{{progress}}" ng-if="!isRadio"></md-progress-linear>
+    <section layout="row" flex>
+        <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md') && isPlaying">
+            <md-content layout-padding>
+                <div layout="column" layout-align="center center" hide-md show-gt-md>
+                    <h3 class="md-title">Now Playing</h3>
+                    <p class="md-caption">{{playing}}</p>
+                </div>
+            </md-content>
+        </md-sidenav>
+        <md-content style="height: 500px;" flex>
+            <section ng-cloak>
+                    <div ui-view></div>
+            </section>
+        </md-content>
+    </section>
+    <md-divider></md-divider>
+</div>
 
 

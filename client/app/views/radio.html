@@ -1,13 +1,12 @@
 <md-subheader class="md-primary">Radios</md-subheader>
 <md-list layout-padding>
-<div ng-repeat="radio in radios" layout="column">
-    <md-content layout="row" ng-class="{'md-content-active' : playing === radio.title}">
-        <md-list-item class="md-3-line" ng-click="playRadio(radio)" flex>
-            <div class="md-list-item-text" layout="column">
-                <h3>{{ radio.title }}</h3>
-            </div>
-        </md-list-item>
-    </md-content>
-    <md-divider></md-divider>
-</div>
+    <div ng-repeat="radio in radios" class="md-whiteframe-8dp" layout="column">
+        <md-content ng-class="{'md-content-active' : playing === radio.title}">
+            <md-list-item class="md-3-line" ng-click="playRadio(radio)" flex>
+                <div class="md-list-item-text" layout="column" flex>
+                    <h3>{{ radio.title }}</h3>
+                </div>
+            </md-list-item>
+        </md-content>
+    </div>
 </md-list>

@@ -9,11 +9,11 @@ angular.module('materialApp')
     $scope.loop = 0;
     $scope.repeat_icon = "assets/icons/repeat.svg";
     $scope.loading = true;
+    $scope.playlist = [];
 
     $rootScope.$on('$stateChangeStart', 
       function(event, toState, toParams, fromState, fromParams, options) { 
         $scope.state = toState.url;
-//        if($scope.state === 'radio') $scope.isRadio = true;
         if($scope.isRadio){
           $scope.isRadio = false;
           player.src = "";
@@ -94,6 +94,11 @@ angular.module('materialApp')
       else {
           $scope.repeat_icon = "assets/icons/repeat.svg";
       }
+    }
+
+    $scope.addPlaylist = function(song) {
+      $scope.playlist.push(song);
+      console.log($scope.playlist);
     }
 
     $http.get('/api/player').success(function(songs) {
