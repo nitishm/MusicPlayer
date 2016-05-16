@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('materialApp')
-  .controller('MainController', function ($rootScope, $scope, $http, $state, player) {
+  .controller('MainController', function ($rootScope, $scope, $http, $state, $mdSidenav, player) {
     $scope.state = $state.current.url;
     $scope.player = player;
     $scope.isPlaying = false;
@@ -24,6 +24,11 @@ angular.module('materialApp')
       }
     );
 
+    $scope.openSidebar = function() {
+        console.log("Opened sidenav");
+        $mdSidenav('left').toggle();
+    };
+
     player.ontimeupdate = function() {
       if($scope.isRadio) {
         $scope.progress = 0;
@@ -40,6 +45,9 @@ angular.module('materialApp')
     }
 
     player.onended = function() {
+      if($scope.playlist.length) {
+        $scope.playSong($scope.playlist.pop());
+      }
       $scope.isPlaying = false;
     }
 
@@ -83,6 +91,24 @@ angular.module('materialApp')
       player.pause();
       player.currentTime = 0;
       $scope.isPlaying = $scope.isPaused = false;
+      $scope.playing = "";
+    }
+
+    $scope.prevSong = function() {
+      player.currentTime = 0;
+    }
+
+    $scope.nextSong = function() {
+      if($scope.playlist.length) $scope.playSong($scope.playlist.pop());
+      else $scope.stopSong();
+    }
+
+    $scope.volMute = function() {
+      player.volume = 0;
+    }
+
+    $scope.volMax = function() {
+      player.volume = 1;
     }
 
     $scope.enableLoop = function() {

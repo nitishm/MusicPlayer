@@ -47,7 +47,7 @@
             </md-button>
             <md-menu-content width="6" layout-padding>
                 <label><md-icon md-svg-icon="assets/icons/volume_up_black.svg"></md-icon></label>
-                <md-slider md-discrete ng-model="player.volume" step="0.1" min="0.1" max="1" aria-label="volume"></md-slider>
+                <md-slider md-discrete ng-model="player.volume" step="0.1" min="0.0" max="1" aria-label="volume"></md-slider>
                 <label ng-if="!isRadio"><md-icon md-svg-icon="assets/icons/fast_forward_black.svg"></md-icon></label>
                 <md-slider md-discrete ng-model="player.currentTime" step="1" min="1" max="{{player.duration}}" aria-label="seek" class="md-primary" ng-if=!isRadio></md-slider>
             </md-menu-content>
@@ -67,25 +67,56 @@
 <md-divider></md-divider>
 <md-toolbar class="md-theme-indigo" hide show-gt-sm>
     <div class="md-toolbar-tools">
-        <md-icon md-svg-icon="assets/icons/fast_rewind.svg" ng-if="!isRadio"></md-icon>
+        <md-button class="md-icon-button" aria-label="repeat" ng-click="prevSong()" ng-if="!isRadio">
+            <md-icon md-svg-icon="assets/icons/skip_previous.svg"></md-icon>
+            <md-tooltip md-direction="bottom" md-visible="tooltipVisible" md-autohide="true">
+                Prev
+            </md-tooltip>
+        </md-button>
         <md-slider ng-model="player.currentTime" step="1" min="1" max="{{player.duration}}" aria-label="seek" class="md-warn flex" style="padding-left: 20px; padding-right: 20px" ng-if="!isRadio"></md-slider>
-        <md-icon md-svg-icon="assets/icons/fast_forward.svg" ng-if="!isRadio"></md-icon>
+        <md-button class="md-icon-button" aria-label="repeat" ng-click="nextSong()" ng-if="!isRadio">
+            <md-icon md-svg-icon="assets/icons/skip_next.svg"></md-icon>
+            <md-tooltip md-direction="bottom" md-visible="tooltipVisible" md-autohide="true">
+                Next
+            </md-tooltip>
+        </md-button>
         <md-divider md-inset ng-if="!isRadio"></md-divider>
-        <md-icon md-svg-icon="assets/icons/volume_down.svg"></md-icon>
-        <md-slider ng-model="player.volume" step="0.1" min="0.1" max="1" aria-label="volume" class="md-warn md-hue-3 flex" style="padding-left: 20px; padding-right: 20px"></md-slider>
-        <md-icon md-svg-icon="assets/icons/volume_up.svg"></md-icon>
+        <md-button class="md-icon-button" aria-label="mute" ng-click="volMute()">
+            <md-icon md-svg-icon="assets/icons/volume_down.svg"></md-icon>
+            <md-tooltip md-direction="bottom" md-visible="tooltipVisible" md-autohide="true">
+                Mute
+            </md-tooltip>
+        </md-button>
+        <md-slider ng-model="player.volume" step="0.1" min="0.0" max="1" aria-label="volume" class="md-warn md-hue-3 flex" style="padding-left: 20px; padding-right: 20px"></md-slider>
+        <md-button class="md-icon-button" aria-label="volfull" ng-click="volMax()">
+            <md-icon md-svg-icon="assets/icons/volume_up.svg"></md-icon>
+            <md-tooltip md-direction="bottom" md-visible="tooltipVisible" md-autohide="true">
+                Max
+            </md-tooltip>
+        </md-button>
     </div>
 </md-toolbar>
 <img src="assets/play_stop.gif" alt="Loading" ng-if="loading" layout-fill>
 <div ng-if="!loading" layout="column" layout-fill>
     <md-progress-linear class="md-warn md-hue-3" md-mode="determinate" value="{{progress}}" ng-if="!isRadio"></md-progress-linear>
-    <section layout="row" flex layout-fill>
-        <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md') && isPlaying">
-            <md-content layout-padding>
-                <div layout="column" layout-align="center center" hide-md show-gt-md>
-                    <h3 class="md-title">Now Playing</h3>
-                    <p class="md-caption">{{playing}}</p>
-                </div>
+    <md-button class="md-fab md-primary" style="position:fixed; bottom:0; left:0" aria-label="openSidebar" ng-click="openSidebar()">
+        <md-icon md-svg-src="assets/icons/featured_play_list.svg"></md-icon>
+        <md-tooltip md-direction="right" md-visible="tooltipVisible" md-autohide="true">
+            Show sidebar
+        </md-tooltip>
+    </md-button>
+    <section layout="row" layout-fill>
+        <md-sidenav class="md-sidenav-left md-whiteframe-z8" md-component-id="left">
+            <md-content layout="column" layout-align="center center">
+                <h3 class="md-headline" ng-hide="!isPlaying" style="color: orange;">Now Playing</h3>
+                <p class="md-body-1" ng-hide="!isPlaying">{{playing}}</p>
+                <h3 class="md-title" style="color: green;">Next Up</h3>
+                <p class="md-caption" ng-hide="playlist.length">Playlist is empty :(</p>
+                <md-list ng-repeat="item in playlist track by $index" ng-show="playlist.length">
+                    <md-list-item class="md-list-item-text" layout-fill>
+                        <p class="md-caption"><em>{{ item.title }}</em></p>
+                    </md-list-item>
+                </md-list>
             </md-content>
         </md-sidenav>
         <md-content flex>
