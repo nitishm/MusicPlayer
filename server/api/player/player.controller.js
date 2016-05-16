@@ -17,7 +17,6 @@ exports.index = function(req, res) {
         extractId3(mp3s[ID]);
 
     function extractId3(file) {
-      console.log(serverDir + file);
       id3js({ file: serverDir + file, type: id3js.OPEN_LOCAL }, function(err, tags) {
         if(tags.title == null) tags.title = file;
           info.push({'file': file, 'title':tags.title, 'album':tags.album, 'year':tags.year});
@@ -25,7 +24,6 @@ exports.index = function(req, res) {
         if (ID < mp3s.length)
           extractId3(mp3s[ID]);
         else {
-          console.log(info);
           res.json(info);
         }
       });

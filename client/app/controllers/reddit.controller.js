@@ -1,34 +1,49 @@
 'use strict';
 
 angular.module('materialApp')
-  .controller('RedditController', function ($scope, $window) {
-    $scope.pennystocks = [];
-    $scope.pics = [];
-    // reddit.top('pennystocks').t('day').limit(10).fetch(function(res) {
-    reddit.hot('pennystocks').limit(20).fetch(function(res) {
-        // res contains JSON parsed response from Reddit
-        for (var i = 1; i < res.data.children.length; i++) {
-            var post = res.data.children[i].data;
-            console.log(post);
-            $scope.pennystocks.push({'thumbnail': post.thumbnail, 'selftext': post.selftext, 'author': post.author, 'ups': parseInt(post.ups), 'title': post.title, 'url': post.url});
-        }
-        $scope.$apply();
+  .controller('RedditController', function ($scope, $window, RedditFactory) {
+    $scope.loading = true;
+    $scope.subreddits = RedditFactory.getSubreddits();
+    // RedditFactory.getSubreddits().then(function(data) {
+    //     $scope.subreddits = data;
+    // });
+
+    RedditFactory.getHotPosts($scope.subreddits[1], 50).then(function(data) {
+        $scope.attributes = {'subreddit': $scope.subreddits[1], 'type': 'top', 'number': 20};
+        $scope.posts = data;
+        $scope.loading = false;
     });
 
-    reddit.top('pics').t("all").limit(20).fetch(function(res) {
-        // res contains JSON parsed response from Reddit
-        for (var i = 1; i < res.data.children.length; i++) {
-            var post = res.data.children[i].data;
-            console.log(post);
-            $scope.pics.push({'thumbnail': post.thumbnail, 'selftext': post.selftext, 'author': post.author, 'ups': parseInt(post.ups), 'title': post.title, 'url': post.url});
+    $scope.updatePosts = function(name, type) {
+        $scope.attributes.subreddit = name;
+        $scope.attributes.type = type;
+        $scope.loading = true;
+        if(type === 'hot') {
+            RedditFactory.getHotPosts(name, 50).then(function(data) {
+                $scope.attributes.subreddit = name;
+                $scope.attributes.type = type;
+                $scope.posts = data;
+                $scope.loading = false;
+            });
         }
-        $scope.$apply();
-    });
+        else if(type === 'top') {
+            RedditFactory.getTopPosts(name, 50).then(function(data) {
+                $scope.attributes.subreddit = name;
+                $scope.attributes.type = type;
+                $scope.posts = data;
+                $scope.loading = false;
+            });
+        }
+    }
+
+    $scope.showComments = function(post) {
+        RedditFactory.getComments(post.id, post.subreddit).then(function(data) {
+            console.log(data);
+            // TODO : Open alert with list of comments
+        });
+    }
 
     $scope.openTab = function(url) {
         $window.open(url, '_blank');
     }
-//        reddit.comments(res.data.children[0].data.id, "pennystocks").limit(1).sort("hot").fetch(function(res) {
-//        console.log(res[1].data.children[0].data.body);
-//        });
 });

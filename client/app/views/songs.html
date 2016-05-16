@@ -1,6 +1,10 @@
-<md-subheader class="md-primary">Songs</md-subheader>
 <md-list layout-padding>
-    <div class="md-whiteframe-8dp" ng-repeat="song in songs" layout="column">
+    <md-input-container class="md-block">
+        <label>Search</label>
+        <md-icon md-svg-src="assets/icons/search_black.svg" class="name"></md-icon>
+        <input type="text" ng-model="songFilter">
+    </md-input-container>
+    <div class="md-whiteframe-8dp" ng-repeat="song in songs|filter:songFilter" layout="column">
         <md-content ng-class="{'md-content-active' : playing === song.title}">
             <md-list-item class="md-3-line" ng-click="playSong(song)" flex>
                 <div class="md-list-item-text" layout="column">

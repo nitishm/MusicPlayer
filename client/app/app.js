@@ -11,7 +11,12 @@ angular.module('materialApp', [
   .factory('player', function() {
     return document.getElementById("player");
   })
-  .config(function($mdIconProvider) {
+  .config(function($mdIconProvider, $mdThemingProvider) {
+    // $mdThemingProvider.theme('default')
+    //   .primaryPalette('indigo')
+    //   .accentPalette('blue')
+    //   .warnPalette('red');
+
     $mdIconProvider
       .iconSet('action', '../assets/iconsets/action-icons.svg', 24)
       .iconSet('alert', '../assets/iconsets/alert-icons.svg', 24)

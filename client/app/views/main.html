@@ -58,6 +58,7 @@
             </md-button>
             <md-menu-content width="2">
                 <md-button ui-sref="reddit"><span md-menu-align-target>Reddit</span></md-button>
+                <md-divider></md-divider>
                 <md-button ui-sref="player.songs"><span md-menu-align-target>Music</span></md-button>
             </md-menu-content>
         </md-menu>    
@@ -75,10 +76,10 @@
         <md-icon md-svg-icon="assets/icons/volume_up.svg"></md-icon>
     </div>
 </md-toolbar>
-<p ng-if="loading">Loading....</p>
+<img src="assets/play_stop.gif" alt="Loading" ng-if="loading" layout-fill>
 <div ng-if="!loading" layout="column" layout-fill>
     <md-progress-linear class="md-warn md-hue-3" md-mode="determinate" value="{{progress}}" ng-if="!isRadio"></md-progress-linear>
-    <section layout="row" flex>
+    <section layout="row" flex layout-fill>
         <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md') && isPlaying">
             <md-content layout-padding>
                 <div layout="column" layout-align="center center" hide-md show-gt-md>
@@ -87,7 +88,7 @@
                 </div>
             </md-content>
         </md-sidenav>
-        <md-content style="height: 500px;" flex>
+        <md-content flex>
             <section ng-cloak>
                     <div ui-view></div>
             </section>
