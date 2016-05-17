@@ -121,7 +121,7 @@
         </md-toolbar>
         <img src="assets/play_stop.gif" alt="Loading" ng-if="loading" layout-fill>
         <div ng-if="!loading" layout="column" layout-fill>
-            <md-button class="md-fab md-primary" style="position:fixed; bottom:0; left:0" aria-label="openSidebar" ng-click="openSidebar()">
+            <md-button class="md-fab md-primary" style="position:fixed; bottom:0; left:0" aria-label="openSidebar" ng-click="openSidebar()" hide-gt-md>
                 <md-icon md-svg-src="assets/icons/featured_play_list.svg"></md-icon>
                 <md-tooltip md-direction="right" md-visible="tooltipVisible" md-autohide="true">
                     Show sidebar
