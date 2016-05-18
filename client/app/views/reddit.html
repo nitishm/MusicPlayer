@@ -12,7 +12,7 @@
             </md-button>
             <md-menu-content width="2">
             <div ng-repeat="subreddit in subreddits" layout="column">
-                <md-button ng-click="updatePosts(subreddit, 'hot')"><span md-menu-align-target>{{subreddit}}</span></md-button>
+                <md-button ng-click="updatePosts(subreddit, 'hot')" ui-sref="reddit.listings({subreddit: subreddit})"><span md-menu-align-target>{{subreddit}}</span></md-button>
                 <md-divider></md-divider>
             </div>
             </md-menu-content>
@@ -29,78 +29,9 @@
         </md-menu>
     </div>
 </md-toolbar>
-<img src="assets/rocket.gif" alt="Loading" ng-if="loading" layout-fill>
 <md-content style="height: 100%;" ng-if="!loading" flex ng-cloak>
     <section>
-        <md-subheader class="reddit-subheader" layout="row">
-            <span  style="color: black;">r/{{attributes.subreddit}}</span> <span class="md-caption">{{attributes.type}} {{attributes.number}} posts of the day</span>
-        </md-subheader>
-        <div layout="row" style="position: fixed; z-index: 9999; bottom: 0; right: 0;" layout-padding flex>
-            <md-fab-speed-dial md-open="type.isOpen" md-direction="left"
-                         class="md-fling" ng-mouseenter="type.isOpen=true" ng-mouseleave="type.isOpen=false">
-                <md-fab-trigger>
-                    <md-button aria-label="menu" class="md-fab md-warn">
-                        <md-icon md-svg-src="assets/icons/settings.svg"></md-icon>
-                    </md-button>
-                </md-fab-trigger>
-                <md-fab-actions>
-                    <md-button aria-label="Hot" class="md-fab md-raised md-mini md-warn md-hue-3" ng-click = "updatePosts(attributes.subreddit, 'hot')">
-                        <md-icon md-svg-src="assets/icons/flash_on.svg" aria-label="Hot"></md-icon>
-                        <md-tooltip md-direction="top" md-visible="tooltipVisible" md-autohide="true">
-                            Hot
-                        </md-tooltip>
-                    </md-button>
-                    <md-button aria-label="Top" class="md-fab md-raised md-mini md-warn md-hue-3" ng-click = "updatePosts(attributes.subreddit, 'top')">
-                        <md-icon md-svg-src="assets/icons/trending_up.svg" aria-label="Top"></md-icon>
-                        <md-tooltip md-direction="top" md-visible="tooltipVisible" md-autohide="true">
-                            Top
-                        </md-tooltip>
-                    </md-button>
-                    <md-button aria-label="ten" class="md-fab md-raised md-mini md-warn md-hue-2" ng-click="attributes.number = 10">
-                        10
-                        <md-tooltip md-direction="top" md-visible="tooltipVisible" md-autohide="true">
-                            10 Posts
-                        </md-tooltip>
-                    </md-button>
-                    <md-button aria-label="twenty" class="md-fab md-raised md-mini md-warn md-hue-2" ng-click="attributes.number = 20">
-                        20
-                        <md-tooltip md-direction="top" md-visible="tooltipVisible" md-autohide="true">
-                            20 Posts
-                        </md-tooltip>
-                    </md-button>
-                    <md-button aria-label="twenty" class="md-fab md-raised md-mini md-warn md-hue-2" ng-click="attributes.number = 50">
-                        50
-                        <md-tooltip md-direction="top" md-visible="tooltipVisible" md-autohide="true">
-                            50 Posts
-                        </md-tooltip>
-                    </md-button>
-                </md-fab-actions>
-            </md-fab-speed-dial>
-        </div>
-        <md-list layout-padding>
-            <div ng-repeat="post in posts|limitTo:attributes.number" class="md-whiteframe-8dp" layout="column">
-                <md-content>
-                    <md-list-item class="md-3-line" ng-click="openTab(post.permalink)" flex>
-                        <img src="{{post.thumbnail}}" width="80px" height="80px" layout-padding ng-if="post.thumbnail"/>
-                        <div class="md-list-item-text" layout="column" flex>
-                            <h3 class="md-subhead">[ <span class="icon-text">{{post.ups}}</span><md-icon md-svg-icon="assets/icons/keyboard_arrow_up_black.svg"></md-icon>] {{post.title}}</h3>
-                            <p class="md-body-2">{{post.selftext|limitTo:300}}<span ng-if='post.selftext.length > 300'> ...</span></p>
-                            <p class="md-caption"><em>- {{post.author}}</em></p>
-                        </div>
-                        <md-menu md-position-mode="target-right target" layout="column" layout-align="center center">
-                            <md-button class="md-icon-button" aria-label="controls" ng-click="$mdOpenMenu($event)">
-                                <md-icon md-svg-icon="assets/icons/menu_black.svg".svg"></md-icon>
-                            </md-button>
-                            <md-menu-content width="2">
-                                <md-button class="md-primary" ng-click="showComments(post)"><span md-menu-align-target>Comments</span></md-button>
-                                <md-divider ng-if=post.thumbnail></md-divider>
-                                <md-button class="md-warn" ng-click="openTab(post.url)" ng-if=post.thumbnail><span md-menu-align-target>Image</span></md-button>
-                            </md-menu-content>
-                        </md-menu>
-                    </md-list-item>
-                </md-content>
-            </div>
-        </md-list>
+        <div ui-view></div>
     </section>
 </md-content>
 </div>

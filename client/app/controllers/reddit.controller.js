@@ -1,15 +1,14 @@
 'use strict';
 
 angular.module('materialApp')
-  .controller('RedditController', function ($scope, $window, RedditFactory) {
-    $scope.loading = true;
+  .controller('RedditController', function ($scope, RedditFactory) {
     $scope.subreddits = RedditFactory.getSubreddits();
-    // RedditFactory.getSubreddits().then(function(data) {
-    //     $scope.subreddits = data;
-    // });
-
-    RedditFactory.getHotPosts($scope.subreddits[1], 50).then(function(data) {
-        $scope.attributes = {'subreddit': $scope.subreddits[1], 'type': 'top', 'number': 20};
+  })
+  .controller('RedditListingController', function ($scope, $stateParams, $window, RedditFactory) {
+    $scope.loading = true;
+    RedditFactory.getHotPosts($stateParams.subreddit, 50).then(function(data) {
+        console.log($stateParams.subreddit);
+        $scope.attributes = {'subreddit': $stateParams.subreddit, 'type': 'top', 'number': 20};
         $scope.posts = data;
         $scope.loading = false;
     });
@@ -46,4 +45,4 @@ angular.module('materialApp')
     $scope.openTab = function(url) {
         $window.open(url, '_blank');
     }
-});
+  });

@@ -2,6 +2,11 @@
 
 angular.module('materialApp')
   .config(function ($stateProvider, $urlRouterProvider) {
+        $urlRouterProvider
+      .when('/reddit', '/reddit/worldnews')
+      .when('/reddit/', '/reddit')
+      .otherwise('/songs');
+
     $stateProvider
       .state('player', {
         url: '/',
@@ -16,11 +21,14 @@ angular.module('materialApp')
         url: 'radio',
         templateUrl : 'app/views/radio.html',
       })
-    .state('reddit' ,{
+      .state('reddit' ,{
         url: '/reddit'  ,
         templateUrl: 'app/views/reddit.html',
         controller: 'RedditController'
-    });
-    $urlRouterProvider
-      .otherwise('/songs');
+      })
+      .state('reddit.listings', {
+        url: '/:subreddit',
+        templateUrl: 'app/partials/reddit-listings.html',
+        controller: 'RedditListingController'
+      });
   });
