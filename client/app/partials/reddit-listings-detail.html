@@ -1,0 +1,7 @@
+<!-- Use $filter.linky from ngSanitize -->
+<a href={{post.permalink}} target="_blank"><h3 class="md-title">{{post.title}}</h3></a>
+<p class="md-body-3"><em>{{post.selftext}}</em></p>
+</md-divider></md-divider>
+<ul ng-repeat="comment in comments">
+	<li>{{comment.comment}}</li>
+</ul>

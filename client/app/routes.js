@@ -1,10 +1,12 @@
 'use strict';
 
 angular.module('materialApp')
-  .config(function ($stateProvider, $urlRouterProvider) {
-        $urlRouterProvider
+  .config(function ($stateProvider, $urlRouterProvider, $urlMatcherFactoryProvider) {
+
+    $urlMatcherFactoryProvider.strictMode(false);
+
+    $urlRouterProvider
       .when('/reddit', '/reddit/worldnews')
-      .when('/reddit/', '/reddit')
       .otherwise('/songs');
 
     $stateProvider
@@ -28,7 +30,20 @@ angular.module('materialApp')
       })
       .state('reddit.listings', {
         url: '/:subreddit',
-        templateUrl: 'app/partials/reddit-listings.html',
-        controller: 'RedditListingController'
+        views: {
+          'content@reddit' :{
+            templateUrl: 'app/partials/reddit-listings.html',
+            controller: 'RedditListingController'
+          }
+        }
+      })
+      .state('reddit.listings.detail', {
+        url: '/:id',
+        views: {
+          'content@reddit' :{
+            templateUrl: 'app/partials/reddit-listings-detail.html',
+            controller: 'RedditListingDetailController'
+          }
+        }
       });
   });

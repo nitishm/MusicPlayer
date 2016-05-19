@@ -33,7 +33,7 @@ angular.module('materialApp')
   			var deferred = $q.defer();
   			var data = [];
   			reddit.comments(id, subreddit).sort("best").fetch(function(res) {
-            	deferred.resolve(res[1].data.children);
+            	deferred.resolve({parent: res[0].data.children[0].data, comments: res[1].data.children});
         	});
         	return deferred.promise;
   		},
