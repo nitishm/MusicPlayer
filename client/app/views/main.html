@@ -55,6 +55,9 @@
         <md-menu md-position-mode="target-right target" layout="column" layout-align="center center">
             <md-button class="md-icon-button" aria-label="controls" ng-click="$mdOpenMenu($event)">
                 <md-icon md-svg-icon="assets/icons/apps.svg"></md-icon>
+                <md-tooltip md-direction="bottom" md-visible="tooltipVisible" md-autohide="true">
+                    Apps
+                </md-tooltip>
             </md-button>
             <md-menu-content width="2">
                 <md-button ui-sref="reddit"><span md-menu-align-target>Reddit</span></md-button>
@@ -68,17 +71,28 @@
 <section layout="row" layout-fill>
     <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
         <md-toolbar class="md-theme-indigo">
-            <md-sub class="md-toolbar-tools">Player Status</h1>
+            <md-sub class="md-toolbar-tools">Status<span ng-show="isPaused">&nbsp;<span class="md-caption">Paused</span></span></h1>
+            <span flex></span>
+            <md-button class="md-primary" aria-label="play_all" ng-hide="!playlist.length" ng-click="nextSong()">{{isPlaying ? 'Next':'Play All'}}</md-button>
         </md-toolbar>
-        <md-content layout="column" ng-show="isPlaying" layout-padding>
-        <md-subheader>{{playing}}</md-subheader>
+        <md-content layout="column" ng-show="isPlaying" layout-align="center center" layout-padding>
+            <md-subheader class="md-primary">{{playing}}</md-subheader>
         </md-content>
         <md-divider></md-divider>
-        <md-content layout="column" style="height: 500px;" layout-padding>
-            <h3 class="md-title" style="color: green;" ng-show="playlist.length">Next Up</h3>
+        <md-content layout="column" layout-padding>
             <img src="assets/images/yeoman.png" width="130px;" height="100px;" style="margin-left: auto;margin-right: auto;" ng-hide="playlist.length">
             <p class="md-caption" style="margin-left: auto;margin-right: auto; text-align: center;" " ng-hide="playlist.length">Add to this playlist by clicking the <md-icon md-svg-icon="assets/icons/menu_black.svg" style="color: #0F0;" aria-label="Alarm Icon"></md-icon> icon in the listing and selecting "Add To Playlist"</p>
-            <md-list ng-repeat="item in playlist track by $index" ng-show="playlist.length">
+            <div layout="row">
+                <h3 class="md-title" style="color: green;" ng-show="playlist.length">Next Up</h3>
+                <span flex></span>
+                <md-button class="md-fab md-mini md-warn" aria-label="clear_all" ng-hide="!playlist.length" ng-click="clearPlaylist()">
+                    <md-icon md-svg-icon="assets/icons/clear_all.svg"></md-icon>
+                    <md-tooltip md-direction="bottom" md-visible="tooltipVisible" md-autohide="true">
+                        Clear Playlist
+                    </md-tooltip>
+                </md-button>
+            </div>
+            <md-list ng-repeat="item in playlist track by $index" ng-show="playlist.length" id="toastParent">
                 <md-list-item class="md-list-item-text">
                     <p class="md-caption"><em>{{ item.title }}</em></p>
                 </md-list-item>

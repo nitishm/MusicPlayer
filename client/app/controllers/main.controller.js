@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('materialApp')
-  .controller('MainController', function ($rootScope, $scope, $http, $state, $mdSidenav, player) {
+  .controller('MainController', function ($rootScope, $scope, $http, $state, $mdSidenav, $mdToast, player) {
     $scope.state = $state.current.url;
     $scope.player = player;
     $scope.isPlaying = false;
@@ -124,9 +124,18 @@ angular.module('materialApp')
 
     $scope.addPlaylist = function(song) {
       $scope.playlist.push(song);
-      console.log($scope.playlist);
+      var el = angular.element(document.body);
+      $mdToast.show(
+        $mdToast.simple()
+          .textContent(song.title + ' added to playlist.')
+          .position('bottom')
+          .hideDelay(15000)
+      );
     }
 
+    $scope.clearPlaylist = function() {
+      $scope.playlist = [];
+    }
     $http.get('/api/player').success(function(songs) {
       $scope.songs = songs;
       $scope.loading = false;

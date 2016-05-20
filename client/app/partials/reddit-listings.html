@@ -49,8 +49,8 @@
         <span class="md-caption">{{attributes.type}} {{attributes.number}} posts of the day</span>
     </md-subheader>
     <md-list layout-padding>
-        <div ng-repeat="post in posts|limitTo:attributes.number" class="md-whiteframe-8dp" layout="column">
-            <md-content>
+        <div ng-repeat="post in posts|limitTo:attributes.number" layout="column">
+            <md-content class="md-whiteframe-8dp">
                 <md-list-item class="md-3-line" ui-sref="reddit.listings.detail({id: post.id})" flex>
                     <img src="{{post.thumbnail}}" width="80px" height="80px" layout-padding ng-if="post.thumbnail"/>
                     <div class="md-list-item-text" layout="column" flex>
