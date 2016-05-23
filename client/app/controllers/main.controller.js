@@ -128,8 +128,8 @@ angular.module('materialApp')
       $mdToast.show(
         $mdToast.simple()
           .textContent(song.title + ' added to playlist.')
-          .position('bottom')
-          .hideDelay(15000)
+          .position('bottom right')
+          .hideDelay(3000)
       );
     }
 

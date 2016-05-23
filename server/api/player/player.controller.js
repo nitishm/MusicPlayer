@@ -5,8 +5,8 @@ var id3js = require('id3js');
 var path = require('path');
 var _ = require('underscore');
 var async = require('async');
-var serverDir = "C:\\Users\\nmalhotra.ACMEPACKET\\Desktop\\MaterialApp\\client\\songs\\";
-// var serverDir = path.join(process.env.PWD, "/client/songs/");
+//var serverDir = "C:\\Users\\nmalhotra.ACMEPACKET\\Desktop\\MaterialApp\\client\\songs\\";
+var serverDir = path.join(process.env.PWD, "/client/songs/");
 exports.index = function(req, res) {
   var info = new Array();
   fs.readdir(serverDir, function(err, files) {

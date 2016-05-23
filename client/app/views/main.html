@@ -92,14 +92,15 @@
                     </md-tooltip>
                 </md-button>
             </div>
-            <md-list ng-repeat="item in playlist track by $index" ng-show="playlist.length" id="toastParent">
+        </md-content>
+        <md-content layout="column" style="height: 500px;" layout-padding>
+            <md-list ng-repeat="item in playlist track by $index" ng-show="playlist.length">
                 <md-list-item class="md-list-item-text">
                     <p class="md-caption"><em>{{ item.title }}</em></p>
                 </md-list-item>
-                <hr/>
+                <md-divider></md-divider>
             </md-list>
         </md-content>
-        <md-divider></md-divider>
     </md-sidenav>
     <section layout="column" flex>
         <md-toolbar class="md-theme-indigo" hide show-gt-sm>
