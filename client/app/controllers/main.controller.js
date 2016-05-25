@@ -136,6 +136,11 @@ angular.module('materialApp')
     $scope.clearPlaylist = function() {
       $scope.playlist = [];
     }
+
+    $scope.shufflePlaylist = function() {
+      $scope.playlist = _.shuffle($scope.playlist);
+    }
+
     $http.get('/api/player').success(function(songs) {
       $scope.songs = songs;
       $scope.loading = false;

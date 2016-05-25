@@ -20,12 +20,6 @@
                 Pause
             </md-tooltip>
         </md-button>
-        <md-button class="md-icon-button" aria-label="repeat" ng-click="enableLoop()">
-            <md-icon md-svg-icon="{{repeat_icon}}"></md-icon>
-            <md-tooltip md-direction="bottom" md-visible="tooltipVisible" md-autohide="true">
-                Repeat
-            </md-tooltip>
-        </md-button>
         <span flex></span>
         <h3 hide show-gt-sm>Music Player</h3>
         <span flex></span>
@@ -73,7 +67,30 @@
         <md-toolbar class="md-theme-indigo">
             <md-sub class="md-toolbar-tools">Status<span ng-show="isPaused">&nbsp;<span class="md-caption">Paused</span></span></h1>
             <span flex></span>
-            <md-button class="md-primary" aria-label="play_all" ng-hide="!playlist.length" ng-click="nextSong()">{{isPlaying ? 'Next':'Play All'}}</md-button>
+            <md-button class="md-icon-button" aria-label="repeat" ng-click="enableLoop()">
+                <md-icon md-svg-icon="{{repeat_icon}}"></md-icon>
+                <md-tooltip md-direction="bottom" md-visible="tooltipVisible" md-autohide="true">
+                    Repeat
+                </md-tooltip>
+            </md-button>
+            <md-button class="md-icon-button" aria-label="clear_all" ng-hide="!playlist.length" ng-click="shufflePlaylist()">
+                <md-icon md-svg-icon="assets/icons/shuffle.svg"></md-icon>
+                <md-tooltip md-direction="bottom" md-visible="tooltipVisible" md-autohide="true">
+                    Shuffle Playlist
+                </md-tooltip>
+            </md-button>
+            <md-button class="md-icon-button" aria-label="clear_all" ng-hide="!playlist.length" ng-click="clearPlaylist()">
+                <md-icon md-svg-icon="assets/icons/clear_all.svg"></md-icon>
+                <md-tooltip md-direction="bottom" md-visible="tooltipVisible" md-autohide="true">
+                    Clear Playlist
+                </md-tooltip>
+            </md-button>
+            <md-button class="md-icon-button" aria-label="play_all" ng-hide="!playlist.length" ng-click="nextSong()">
+                <md-icon md-svg-icon="assets/icons/skip_next.svg"></md-icon>
+                <md-tooltip md-direction="bottom" md-visible="tooltipVisible" md-autohide="true">
+                    {{isPlaying ? 'Next':'Play All'}}
+                </md-tooltip>
+            </md-button>
         </md-toolbar>
         <md-content layout="column" ng-show="isPlaying" layout-align="center center" layout-padding>
             <md-subheader class="md-primary">{{playing}}</md-subheader>
@@ -82,25 +99,15 @@
         <md-content layout="column" layout-padding>
             <img src="assets/images/yeoman.png" width="130px;" height="100px;" style="margin-left: auto;margin-right: auto;" ng-hide="playlist.length">
             <p class="md-caption" style="margin-left: auto;margin-right: auto; text-align: center;" " ng-hide="playlist.length">Add to this playlist by clicking the <md-icon md-svg-icon="assets/icons/menu_black.svg" style="color: #0F0;" aria-label="Alarm Icon"></md-icon> icon in the listing and selecting "Add To Playlist"</p>
-            <div layout="row">
-                <h3 class="md-title" style="color: green;" ng-show="playlist.length">Next Up</h3>
-                <span flex></span>
-                <md-button class="md-fab md-mini md-warn" aria-label="clear_all" ng-hide="!playlist.length" ng-click="clearPlaylist()">
-                    <md-icon md-svg-icon="assets/icons/clear_all.svg"></md-icon>
-                    <md-tooltip md-direction="bottom" md-visible="tooltipVisible" md-autohide="true">
-                        Clear Playlist
-                    </md-tooltip>
-                </md-button>
-            </div>
-        </md-content>
-        <md-content layout="column" style="height: 500px;" layout-padding>
-            <md-list ng-repeat="item in playlist track by $index" ng-show="playlist.length">
+            <h3 class="md-title" style="color: green;" ng-show="playlist.length">Next Up</h3>
+            <md-list ng-repeat="item in playlist track by $index" ng-show="playlist.length" id="toastParent">
                 <md-list-item class="md-list-item-text">
                     <p class="md-caption"><em>{{ item.title }}</em></p>
                 </md-list-item>
-                <md-divider></md-divider>
+                <hr/>
             </md-list>
         </md-content>
+        <md-divider></md-divider>
     </md-sidenav>
     <section layout="column" flex>
         <md-toolbar class="md-theme-indigo" hide show-gt-sm>
@@ -112,7 +119,7 @@
                     </md-tooltip>
                 </md-button>
                 <md-slider ng-model="player.currentTime" step="1" min="1" max="{{player.duration}}" aria-label="seek" class="md-warn flex" style="padding-left: 20px; padding-right: 20px" ng-if="!isRadio"></md-slider>
-                <md-button class="md-icon-button" aria-label="repeat" ng-click="nextSong()" ng-if="!isRadio">
+                <md-button class="md-icon-button" aria-label="skip_next" ng-click="nextSong()" ng-if="!isRadio">
                     <md-icon md-svg-icon="assets/icons/skip_next.svg"></md-icon>
                     <md-tooltip md-direction="bottom" md-visible="tooltipVisible" md-autohide="true">
                         Next

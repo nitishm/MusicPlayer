@@ -35,4 +35,5 @@ angular.module('materialApp', [
       .iconSet('social', '../assets/iconsets/social-icons.svg', 24)
       .iconSet('toggle', '../assets/iconsets/toggle-icons.svg', 24)
       .iconSet('avatar', '../assets/iconsets/avatar-icons.svg', 128);
-  });
+  })
+  .constant('_', window._);
